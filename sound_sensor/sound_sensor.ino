@@ -9,8 +9,8 @@
 // Variable Definitions
 const int  sensorAnalogPin = A0;    // Analog Input Pin to accept analog output from the Sound Sensor 
 const int  sensorDigitalPin = 3;    // Digital Input Pin to accept digital output from the Sound Sensor
-const int  analogValue = 0;         // Analog sensor value
-const int  digitalValue;            // Digital sensor value
+int  analogValue = 0;         // Analog sensor value
+int  digitalValue;            // Digital sensor value
 const int  Led13 = 13;              // Define LED port 13; this is the LED built in to the Arduino (labled L)
                               
 
