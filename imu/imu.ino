@@ -31,14 +31,8 @@ void loop() {
   GyX = Wire.read()<<8|Wire.read();  // 0x43 (GYRO_XOUT_H) & 0x44 (GYRO_XOUT_L)
   GyY = Wire.read()<<8|Wire.read();  // 0x45 (GYRO_YOUT_H) & 0x46 (GYRO_YOUT_L)
   GyZ = Wire.read()<<8|Wire.read();  // 0x47 (GYRO_ZOUT_H) & 0x48 (GYRO_ZOUT_L)
-  sprintf(buffer, "Accelerometer Readings\nAcX: %d AcY: %d AcZ: %d\nTemp: %d\nGyroscope Readings:\nGyX: %d GyY: %d GyZ: %d\n", AcX, AcY, AcZ, Tmp/340.00+36.53, GyX, GyY, GyZ);
+  Tmp = Tmp/340.00 + 36.53; // Formula taken from the datasheet
+  sprintf(buffer, "Accelerometer Readings\nAcX: %d AcY: %d AcZ: %d\nTemp: %d\nGyroscope Readings:\nGyX: %d GyY: %d GyZ: %d\n", AcX, AcY, AcZ, Tmp, GyX, GyY, GyZ);
   Serial.print(buffer);
-  // Serial.print("AcX = "); Serial.print(AcX);
-  // Serial.print(" | AcY = "); Serial.println(AcY);
-  // Serial.print(" | AcZ = "); Serial.print(AcZ);
-  // Serial.print(" | Tmp = "); Serial.print(Tmp/340.00+36.53);  //From the datasheet of MPU6050, we can know the temperature formula
-  // Serial.print(" | GyX = "); Serial.print(GyX);
-  // Serial.print(" | GyY = "); Serial.println(GyY);
-  // Serial.print(" | GyZ = "); Serial.println(GyZ);
   delay(1000);
 }
