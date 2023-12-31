@@ -13,44 +13,54 @@ byte currentSegments = B00000000; // Holds the pattern for the currently active 
 typedef struct {
   char segmentName;
   byte segmentPattern;
+  bool active;
 } segment;
 // Create an array of structs of type segment
 segment seven_segment_patterns[9] = {
   {
     segmentName: 'P',
     segmentPattern: B10000000,
+    active: false,
   },
   {
     segmentName: 'A',
     segmentPattern: B01000000,
+    active: false,
   },
   {
     segmentName: 'B',
     segmentPattern: B00100000,
+    active: false,
   },
   {
     segmentName: 'C',
     segmentPattern: B00010000,
+    active: false,
   },
   {
     segmentName: 'D',
     segmentPattern: B00001000,
+    active: false,
   },
   {
     segmentName: 'E',
     segmentPattern: B00000100,
+    active: false,
   },
   {
     segmentName: 'F',
     segmentPattern: B00000010,
+    active: false,
   },
   {
     segmentName: 'G',
     segmentPattern: B00000001,
+    active: false,
   },
   {
     segmentName: 'X',
     segmentPattern: B00000000,
+    active: false,
   }
 };
 
@@ -94,8 +104,11 @@ void loop() {
     if (userInput == 'A' || userInput == 'B' || userInput == 'C' || userInput == 'D' || userInput == 'E' || userInput == 'F' || userInput == 'G' || userInput == 'P') {
       // Search array of structs for matching segment name
       for (int i = 0; i <= sizeof(seven_segment_patterns)/sizeof(segment); i++) {
-        if (userInput == seven_segment_patterns[i].segmentName) {
+        if (userInput == seven_segment_patterns[i].segmentName && seven_segment_patterns[i].active != true) {
+          // Update the currently active segments pattern
           currentSegments += seven_segment_patterns[i].segmentPattern;
+          // Mark the newly added segment as active
+          seven_segment_patterns[i].active = true;
         }
       }
       // Display the current active segments
@@ -103,11 +116,18 @@ void loop() {
       // Give the user feedback on the updated segment
       Serial.print("Turned on segment ");
       Serial.println(userInput);
+      Serial.print("Current Active Segment Pattern: ");
+      Serial.println(currentSegments);
     }
     // Check if the user is trying to clear all the segments
     if (userInput == 'X') {
+      // Clear all the segments
       currentSegments = B00000000;
       sevenSegmentWrite(currentSegments);
+      // Mark the segments as inactive
+      for (int i = 0; i <= sizeof(seven_segment_patterns)/sizeof(segment); i++) {
+        seven_segment_patterns[i].active = false;
+      }
       Serial.println("Cleared");
     }
   }
