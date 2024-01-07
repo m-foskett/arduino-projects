@@ -1,5 +1,5 @@
-void MCU_timer_interrupt_init(unsigned long time1 ,unsigned long time2)
-{
+
+void MCU_timer_interrupt_init(unsigned long time1 ,unsigned long time2) {
   MsTimer2::set(time2, timer2_interrupt); // 100ms period
   MsTimer2::start();
 
@@ -12,7 +12,7 @@ void timer1_interrupt()
 {
     time_timer=millis();
     
-   if( !digitalRead(BUTTON_MS) &&  1000 < (abs(time_button_ms-time_timer)) )
+   if( !digitalRead(MILLISECONDS_BUTTON) &&  1000 < (abs(time_milliseconds_button - time_timer)) )
    {
        number +=1;
        if(number%100 == 60 && number != 60)
@@ -22,7 +22,7 @@ void timer1_interrupt()
           number=100;  
     }
 
-    if( !digitalRead(BUTTON_S) &&  1000 < (abs(time_button_s-time_timer))  )
+    if( !digitalRead(SECONDS_BUTTON) &&  1000 < (abs(time_seconds_button - time_timer))  )
    {
        number +=100;
    }
