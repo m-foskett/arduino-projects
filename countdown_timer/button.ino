@@ -1,41 +1,47 @@
-void button_init(const uint8_t button_s,const uint8_t button_ms,const uint8_t button_choose)
-{
-  pinMode(button_s, INPUT_PULLUP);  
-  pinMode(button_ms, INPUT_PULLUP); 
-  pinMode(button_choose, INPUT_PULLUP);
+// Function: control_buttons_setup
+//  - Purpose:
+//    - Setup the Control Buttons of the timer to be INPUT_PULLUP
+//  - Returns:
+//    - void
+void control_buttons_setup(const uint8_t select_button, const uint8_t seconds_button, const uint8_t milliseconds_button) {
+  pinMode(select_button, INPUT_PULLUP);
+  pinMode(seconds_button, INPUT_PULLUP);
+  pinMode(milliseconds_button, INPUT_PULLUP); 
+}
+// Function: control_buttons_interrupt_setup
+//  - Purpose:
+//    - Attach Pin Change Interrupts to the pins of Control Buttons
+//  - Returns:
+//    - void
+void control_buttons_interrupt_setup(const uint8_t select_button, const uint8_t seconds_button,const uint8_t milliseconds_button) {
+  attachPinChangeInterrupt(select_button, select_button_interrupt, FALLING);
+  attachPinChangeInterrupt(seconds_button, seconds_button_interrupt, FALLING);
+  attachPinChangeInterrupt(milliseconds_button, milliseconds_button_interrupt, FALLING);
 }
 
 
-void button_interrupt_init(const uint8_t button_s,const uint8_t button_ms,const uint8_t button_choose)
+void seconds_button_interrupt()
 {
-  attachPinChangeInterrupt(button_s, button_s_interrupt, FALLING );
-  attachPinChangeInterrupt(button_ms, button_ms_interrupt, FALLING);
-  attachPinChangeInterrupt(button_choose, button_choose_interrupt, FALLING );
-}
-
-
-void button_s_interrupt()
-{
-  time_button_s=millis();
+  time_seconds_button=millis();
   
-  if (200 < (abs(time_button_s - last_time_button_s)))
+  if (200 < (abs(time_seconds_button - last_time_seconds_button)))
   {
     flag_begin=0; 
     
     number +=100;
     
-    last_time_button_s = time_button_s;
+    last_time_seconds_button = time_seconds_button;
     
     if (number >= 9900)
         number = 9999;
   }   
 }
 
-  void button_ms_interrupt()
+  void milliseconds_button_interrupt()
 {
-  time_button_ms=millis();
+  time_milliseconds_button=millis();
   
-  if (200 < (abs(time_button_ms - last_time_button_ms)))
+  if (200 < (abs(time_milliseconds_button - last_time_milliseconds_button)))
   {
      flag_begin=0;
      
@@ -50,15 +56,15 @@ void button_s_interrupt()
      if(number >= 9900)
         number = 9999;
 
-      last_time_button_ms = time_button_ms;
+      last_time_milliseconds_button = time_milliseconds_button;
   }    
 }
 
-void button_choose_interrupt ()
+void select_button_interrupt ()
 {
-   time_button_choose=millis();
+   time_select_button=millis();
 
-   if (200 < (abs(time_button_choose - last_time_button_choose)))
+   if (200 < (abs(time_select_button - last_time_select_button)))
     { 
       if(flag_begin)
         {
@@ -67,6 +73,6 @@ void button_choose_interrupt ()
          
       flag_begin=!flag_begin;
       
-      last_time_button_choose = time_button_choose;
+      last_time_select_button = time_select_button;
     }
 }
