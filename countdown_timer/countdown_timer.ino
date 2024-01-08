@@ -37,10 +37,12 @@ void setup() {
   // Setup LED pin
   led_setup(LED);
   
-  MCU_timer_interrupt_init(150 ,1060); //set timer1 0.15s  timer2 1s 
+  MCU_timer_interrupt_init(150 ,1060); //set timer1 0.15s  timer2 1s
+  clear_display();
 }
 
 void loop() {
- display_num(number);
+//  display_num(number);
+  // clear_display();
  time_out();
 }

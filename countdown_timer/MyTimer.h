@@ -13,7 +13,7 @@ static int last_time_select_button = 0;
 static int last_time_seconds_button = 0;
 static int last_time_milliseconds_button = 0;
 
-static uint16_t flag_begin = 0;
+static uint16_t flag_begin = 1;
 
 static uint16_t number = 0;
 
