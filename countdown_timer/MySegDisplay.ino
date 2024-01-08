@@ -27,17 +27,21 @@ void digit_pins_setup(const uint8_t digit_1, const uint8_t digit_2, const uint8_
 //    - Setup LED pin
 //  - Returns:
 //    - void
-void led_setup() {
-   digitalWrite(LED, HIGH);
+void led_setup(const uint8_t led) {
+   digitalWrite(led, HIGH);
 }
-
+// Function: display_time
+//  - Purpose:
+//    - Displays the current countdown time
+//  - Returns:
+//    - void
 void display_num(uint16_t num) {
   uint8_t com = 0;
   uint8_t polling = 0;
   uint8_t bit_num = 0;
   uint8_t num_place[4] = {0};
   
-  if(num > = 1000 && num <= 9999) {
+  if(num >= 1000 && num <= 9999) {
     polling = 4;
     bit_num = 3;
     num_place[3] = num/1000;
@@ -165,7 +169,7 @@ void clear_bit_display()
   for(int i = 0; i < 4; i++) {
     choose_com(i);
     digitalWrite(LATCH, LOW);
-    shiftOut(DATA, CLOCK, MSBFIRST,0);
+    shiftOut(DATA, CLOCK, MSBFIRST, B00000000);
     digitalWrite(LATCH, HIGH);
     digitalWrite(LATCH, LOW);
     delay(TIME);
