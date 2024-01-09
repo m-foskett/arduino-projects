@@ -1,5 +1,5 @@
 // Countdown Timer
-
+#include <Arduino.h>
 // Shift Register Pinout
 #define DATA 12
 #define LATCH 11
@@ -23,7 +23,8 @@
 #include "MsTimer1.h"
 #include "MyTimer.h"
 
-void setup() {
+void setup()
+{
   // Setup the 74HC95 Shift Register pins
   shift_register_setup(LATCH, CLOCK, DATA);
   // Setup the Digit Control pins of the 4-digit-7-segment display
@@ -36,13 +37,15 @@ void setup() {
   buzzer_setup(BUZZER);
   // Setup LED pin
   led_setup(LED);
-  
-  MCU_timer_interrupt_init(150 ,1060); //set timer1 0.15s  timer2 1s
+
+  // MCU_timer_interrupt_init(150 ,1060); //set timer1 0.15s  timer2 1s
   clear_display();
 }
 
-void loop() {
-//  display_num(number);
+void loop()
+{
+  //  display_num(number);
+
   // clear_display();
- time_out();
+  time_out();
 }
