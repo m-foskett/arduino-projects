@@ -1,30 +1,22 @@
 // Countdown Timer
 #include <Arduino.h>
-// Shift Register Pinout
-#define DATA 12
-#define LATCH 11
-#define CLOCK 9
-// Four Digit Seven Segment Display Digit Control Pinout
-#define DIGIT_1 2
-#define DIGIT_2 3
-#define DIGIT_3 4
-#define DIGIT_4 5
-// Control Button Pinout
-#define SELECT_BUTTON A1
-#define SECONDS_BUTTON A3
-#define MILLISECONDS_BUTTON 6
-// Buzzer Pinout
-#define BUZZER A2
-// LED Pinout
-#define LED A0
+#include "avr8-stub.h"
+#include "app_api.h" // only needed with flash breakpoints
 
-#include "PinChangelnt.h"
+#include "MyTimer.h"
+// #include "PinChangelnt.h"
 #include "MsTimer2.h"
 #include "MsTimer1.h"
-#include "MyTimer.h"
+#include <MsTimer1.h>
+#include <MsTimer2.h>
+#include "MySegDisplay.cpp"
+#include "button.cpp"
+#include "buzzer.cpp"
 
 void setup()
 {
+  // initialize GDB stub
+  debug_init();
   // Setup the 74HC95 Shift Register pins
   shift_register_setup(LATCH, CLOCK, DATA);
   // Setup the Digit Control pins of the 4-digit-7-segment display
