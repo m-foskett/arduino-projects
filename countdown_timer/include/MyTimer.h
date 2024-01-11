@@ -19,21 +19,19 @@
 // LED Pinout
 #define LED A0
 
-void time_out();
+static int time_select_button{0};
+static int time_seconds_button{0};
+static int time_milliseconds_button{0};
 
-static int time_select_button = 0;
-static int time_seconds_button = 0;
-static int time_milliseconds_button = 0;
+static int time_timer{0};
 
-static int time_timer = 0;
+static int last_time_select_button{0};
+static int last_time_seconds_button{0};
+static int last_time_milliseconds_button{0};
 
-static int last_time_select_button = 0;
-static int last_time_seconds_button = 0;
-static int last_time_milliseconds_button = 0;
+static uint16_t flag_begin = {1};
 
-static uint16_t flag_begin = 1;
-
-static uint16_t number = 0;
+static uint16_t number = {0};
 
 const static uint8_t num_buf[] = {
     0x3f,
