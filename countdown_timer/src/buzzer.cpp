@@ -1,5 +1,6 @@
 #include <Arduino.h>
 
+#include "buzzer.h"
 #include "MyTimer.h"
 
 // Function: buzzer_setup
@@ -16,12 +17,12 @@ void time_out()
 {
   while (flag_begin && number == 0)
   {
-    delay(100);
+    delay(500);
     digitalWrite(BUZZER, HIGH);
     digitalWrite(LED, LOW);
-    delay(100);
+    delay(500);
     digitalWrite(BUZZER, LOW);
-    delay(100);
+    delay(500);
     digitalWrite(LED, HIGH);
   }
 }

@@ -1,5 +1,6 @@
 // Countdown Timer
 #include <Arduino.h>
+
 #include "avr8-stub.h"
 #include "app_api.h" // only needed with flash breakpoints
 
@@ -9,14 +10,15 @@
 #include "MsTimer1.h"
 #include <MsTimer1.h>
 #include <MsTimer2.h>
-#include "MySegDisplay.cpp"
-#include "button.cpp"
-#include "buzzer.cpp"
+
+#include "MySegDisplay.h"
+#include "button.h"
+#include "buzzer.h"
 
 void setup()
 {
   // initialize GDB stub
-  debug_init();
+  // debug_init();
   // Setup the 74HC95 Shift Register pins
   shift_register_setup(LATCH, CLOCK, DATA);
   // Setup the Digit Control pins of the 4-digit-7-segment display
@@ -31,13 +33,14 @@ void setup()
   led_setup(LED);
 
   // MCU_timer_interrupt_init(150 ,1060); //set timer1 0.15s  timer2 1s
-  clear_display();
+  // clear_display();
 }
 
 void loop()
 {
-  //  display_num(number);
-
+  digitalWrite(BUZZER, HIGH);
+  // display_num(number);
+  //
   // clear_display();
-  time_out();
+  // time_out();
 }
